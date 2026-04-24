@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucas Carroll - VP Sales, Robotics & Automation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-dark: #0a0a0f;
+    --bg-card: #111118;
+    --bg-card-hover: #16161f;
+    --border: #1e1e2a;
+    --text-primary: #f0f0f5;
+    --text-secondary: #8888a0;
+    --text-muted: #55556a;
+    --accent-blue: #4d7cff;
+    --accent-cyan: #00d4ff;
+    --accent-purple: #8b5cf6;
+    --accent-green: #22c55e;
+    --accent-amber: #f59e0b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    padding: 60px 24px 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://lh3.googleusercontent.com/d/1swc7qGfgCmCJ-qOH7Wxhh84qiKT0rxA1=w1600');
+    background-size: cover;
+    background-position: center 30%;
+    filter: brightness(0.35) contrast(1.1);
+    z-index: 0;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(10, 10, 15, 0.3) 0%,
+      rgba(10, 10, 15, 0.5) 40%,
+      rgba(10, 10, 15, 0.95) 85%,
+      rgba(10, 10, 15, 1) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+  }
+
+  .hero h1 {
+    font-size: clamp(44px, 7vw, 72px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    text-shadow: 0 2px 40px rgba(0,0,0,0.5);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 300;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+  }
+
+  .hero-role {
+    font-size: 13px;
+    color: var(--accent-cyan);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    font-weight: 500;
+  }
+
+  .hero-contact {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+
+  .hero-contact a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+  }
+
+  .hero-contact a:hover { color: var(--accent-cyan); }
+
+  /* Stats Bar */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    max-width: 800px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .stat {
+    background: rgba(17, 17, 24, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 28px 16px;
+    text-align: center;
+    border: 1px solid var(--border);
+    transition: all 0.4s;
+  }
+
+  .stat:first-child { border-radius: 12px 0 0 12px; }
+  .stat:last-child { border-radius: 0 12px 12px 0; }
+
+  .stat:hover {
+    background: rgba(22, 22, 31, 0.9);
+    transform: translateY(-2px);
+    border-color: var(--accent-blue);
+  }
+
+  .stat-number {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-number.blue { color: var(--accent-blue); }
+  .stat-number.cyan { color: var(--accent-cyan); }
+  .stat-number.purple { color: var(--accent-purple); }
+  .stat-number.green { color: var(--accent-green); }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: pulse 2s ease-in-out infinite;
+    z-index: 2;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+
+  /* ===== PHOTO BREAK ===== */
+  .photo-break {
+    position: relative;
+    height: 50vh;
+    min-height: 320px;
+    overflow: hidden;
+  }
+
+  .photo-break-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-break-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(10, 10, 15, 1) 0%,
+      rgba(10, 10, 15, 0.2) 15%,
+      rgba(10, 10, 15, 0.2) 85%,
+      rgba(10, 10, 15, 1) 100%);
+  }
+
+  .photo-break-caption {
+    position: absolute;
+    bottom: 24px;
+    left: 32px;
+    z-index: 1;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+  }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 24px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 32px;
+    color: var(--text-primary);
+  }
+
+  /* Philosophy Cards */
+  .philosophy-grid { display: grid; gap: 12px; }
+
+  .philosophy-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .philosophy-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent-blue);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .philosophy-card:hover {
+    border-color: var(--accent-blue);
+    background: var(--bg-card-hover);
+    transform: translateX(4px);
+  }
+
+  .philosophy-card:hover::before { opacity: 1; }
+
+  .philosophy-card p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .philosophy-card strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* Experience Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent-blue), var(--accent-purple), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    padding-left: 16px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -37px; top: 8px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--bg-dark);
+    border: 2px solid var(--accent-blue);
+    transition: all 0.3s;
+  }
+
+  .timeline-item:hover::before {
+    background: var(--accent-blue);
+    box-shadow: 0 0 12px rgba(77, 124, 255, 0.4);
+  }
+
+  .timeline-title { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+  .timeline-company { font-size: 14px; color: var(--accent-cyan); margin-bottom: 4px; }
+  .timeline-date { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 0.5px; }
+
+  .timeline-bullets { list-style: none; padding: 0; }
+
+  .timeline-bullets li {
+    padding: 4px 0 4px 20px;
+    position: relative;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .timeline-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 12px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .highlight { color: var(--accent-amber); font-weight: 600; }
+
+  /* ===== IMAGE GALLERY ===== */
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .gallery.visible { opacity: 1; transform: translateY(0); }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    aspect-ratio: 16/10;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: brightness(0.8);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(1);
+  }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 12px 16px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+    font-size: 11px;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+  }
+
+  /* Strengths Tags */
+  .strengths-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .strength-tag {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    transition: all 0.3s;
+    cursor: default;
+  }
+
+  .strength-tag:hover {
+    border-color: var(--accent-blue);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(77, 124, 255, 0.1);
+  }
+
+  /* ===== PRESS CARD ===== */
+  .press-card {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .press-card.visible { opacity: 1; transform: translateY(0); }
+
+  .press-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    align-items: center;
+  }
+
+  .press-inner img {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  .press-text { }
+  .press-source { font-size: 11px; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+  .press-headline { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .press-summary { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* Closing Section */
+  .closing-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 24px 120px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .closing-section.visible { opacity: 1; transform: translateY(0); }
+
+  .closing-card {
+    background: linear-gradient(135deg, rgba(77, 124, 255, 0.08) 0%, rgba(139, 92, 246, 0.06) 100%);
+    border: 1px solid rgba(77, 124, 255, 0.2);
+    border-radius: 16px;
+    padding: 48px;
+  }
+
+  .closing-card p {
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  .closing-card p:last-child { margin-bottom: 0; }
+  .closing-card strong { color: var(--text-primary); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-contact {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .footer-contact a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+  }
+
+  .footer-contact a:hover { color: var(--accent-cyan); }
+  .footer-note { font-size: 12px; color: var(--text-muted); }
+
+  .counter { display: inline-block; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .stat:first-child { border-radius: 12px 0 0 0; }
+    .stat:nth-child(2) { border-radius: 0 12px 0 0; }
+    .stat:nth-child(3) { border-radius: 0 0 0 12px; }
+    .stat:last-child { border-radius: 0 0 12px 0; }
+    .closing-card { padding: 32px 24px; }
+    .hero-contact { gap: 16px; }
+    .gallery { grid-template-columns: 1fr; }
+    .press-inner { grid-template-columns: 1fr; }
+    .photo-break { height: 35vh; min-height: 240px; }
+  }
+
+  @media print {
+    body { background: white; color: #111; }
+    .hero-bg, .hero-overlay { display: none; }
+    .section, .closing-section, .gallery, .press-card { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO with background image ===== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Lucas Carroll</h1>
+    <div class="hero-subtitle">VP Sales - Robotics & Automation</div>
+    <div class="hero-role">CRO & VP US at Stanley Robotics</div>
+    <div class="hero-contact">
+      <a href="mailto:lukepcarroll88@gmail.com">lukepcarroll88@gmail.com</a>
+      <a href="tel:+13125390607">+1 312-539-0607</a>
+      <a>Chicago, IL</a>
+      <a href="https://linkedin.com/in/lucascarroll1988" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-number blue">$<span class="counter" data-target="4">0</span>M</div>
+      <div class="stat-label">ARR Owned</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number cyan">$<span class="counter" data-target="10">0</span>M+</div>
+      <div class="stat-label">Partnerships Built</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number purple">$<span class="counter" data-target="6">0</span>M+</div>
+      <div class="stat-label">TCV Closed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number green"><span class="counter" data-target="8">0</span></div>
+      <div class="stat-label">Years in Robotics</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Scroll to explore</div>
+</section>
+
+<!-- ===== PROFILE ===== -->
+<div class="section" id="profile">
+  <div class="section-label">Profile</div>
+  <div class="section-title">8 years building robotics markets from zero.</div>
+  <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8;">
+    Sales leader with 8 years in robotics and automation, including 6 years scaling Stanley Robotics from early-stage to international markets. Built and closed a $4M ARR book as the sole commercial leader, while assembling $10M+ in technology partnerships. Technically fluent - equally at home in engineering reviews, customer demos, and C-suite negotiations. I believe the best robotics companies succeed when they earn trust with the people who use their products every day.
+  </p>
+</div>
+
+<!-- ===== PHOTO: Presenting on stage ===== -->
+<div class="photo-break">
+  <img class="photo-break-img"
+       src="https://lh3.googleusercontent.com/d/1tkmuHI5tlYeS55HzTcXvNzfeS6VMsiFW=w1600"
+       alt="Lucas Carroll presenting at Stanley Robotics event">
+  <div class="photo-break-overlay"></div>
+  <div class="photo-break-caption">Presenting the North America expansion strategy</div>
+</div>
+
+<!-- ===== PHILOSOPHY ===== -->
+<div class="section" id="philosophy">
+  <div class="section-label">Philosophy</div>
+  <div class="section-title">How I work.</div>
+  <div class="philosophy-grid">
+    <div class="philosophy-card">
+      <p><strong>Systems over heroics.</strong> A scalable sales engine matters more than one brilliant quarter. I build machines that produce results consistently.</p>
+    </div>
+    <div class="philosophy-card">
+      <p><strong>Downside first.</strong> Every deal has a risk profile and every deployment has a human impact. I protect the base before chasing the upside.</p>
+    </div>
+    <div class="philosophy-card">
+      <p><strong>Translate, don't pitch.</strong> I sit between engineering and the customer. The best sales leaders make complex technology feel accessible - not simplified.</p>
+    </div>
+    <div class="philosophy-card">
+      <p><strong>Buyer-led sales.</strong> The best deals happen when you give buyers the tools and information to sell internally - not when you push. I use digital sales tools to track discovery, enable champions, and compress cycle times.</p>
+    </div>
+    <div class="philosophy-card">
+      <p><strong>Robotics is an education sale.</strong> The buyer is investing in a capability they haven't operated before. My job is to make that investment feel inevitable - and then prove it was right.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EXPERIENCE ===== -->
+<div class="section" id="experience">
+  <div class="section-label">Experience</div>
+  <div class="section-title">Where I've been.</div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-title">Chief Revenue Officer & VP US</div>
+      <div class="timeline-company">Stanley Robotics</div>
+      <div class="timeline-date">CRO: Nov 2024 - Present &nbsp;|&nbsp; VP US: Aug 2025 - Present</div>
+      <ul class="timeline-bullets">
+        <li>Leading North America market entry for autonomous robotics platform into airports, logistics, and parking operations</li>
+        <li>Sole owner of <span class="highlight">$4M ARR</span> across international markets</li>
+        <li>Built <span class="highlight">$10M+</span> in technology partnerships and strategic investments</li>
+        <li>Led the <span class="highlight">majority stake acquisition</span> of the company</li>
+        <li>Full commercial strategy across US, Canada, UK, and EU markets</li>
+        <li>Direct report to CEO on revenue strategy and market positioning</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-title">UK Country Manager / Head of Sales</div>
+      <div class="timeline-company">Stanley Robotics</div>
+      <div class="timeline-date">Nov 2018 - Nov 2024</div>
+      <ul class="timeline-bullets">
+        <li>First commercial hire in the UK - <span class="highlight">built the market from zero</span> to multi-million ARR</li>
+        <li>Closed contracts with a total contract value exceeding <span class="highlight">$6M</span></li>
+        <li>Managed full enterprise sales cycles for complex robotics deployments (12-18 month cycles)</li>
+        <li>Built partnerships with multinational operators and infrastructure groups</li>
+        <li>Led cross-functional coordination between sales, engineering, and operations</li>
+        <li>Shaped product roadmap from direct customer feedback and field intelligence</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-title">Project Manager</div>
+      <div class="timeline-company">National Car Parks</div>
+      <div class="timeline-date">Dec 2015 - Nov 2018</div>
+      <ul class="timeline-bullets">
+        <li>Delivered the largest IT, construction, and asset refresh projects for NCP's top-tier clients</li>
+        <li>Managed multi-site technology rollouts across UK parking infrastructure</li>
+        <li>Bridge between technology vendors and operations - direct domain overlap with robotics deployment</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-title">Project Manager</div>
+      <div class="timeline-company">Ranger Services</div>
+      <div class="timeline-date">Dec 2014 - Dec 2015</div>
+      <ul class="timeline-bullets">
+        <li>Delivered ANPR and parking infrastructure projects across the UK</li>
+        <li>Managed vendor relationships and technical delivery for enforcement technology</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-title">Customer Support Manager</div>
+      <div class="timeline-company">Senceive</div>
+      <div class="timeline-date">Jun 2013 - Dec 2014</div>
+      <ul class="timeline-bullets">
+        <li>Deployed wireless IoT asset monitoring solutions for enterprise clients across UK and Ireland</li>
+        <li>Early exposure to sensor networks, remote monitoring, and hardware-software integration</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== GALLERY: In the field ===== -->
+<div class="gallery" id="gallery">
+  <div class="gallery-item">
+    <img src="https://lh3.googleusercontent.com/d/15Ku2B5Bdc_52YXrzf0nEOlyl0r0kXfwz=w800"
+         alt="Lucas Carroll with Stanley Robotics robot at airport">
+    <div class="gallery-caption">On-site with the fleet - European logistics deployment</div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://lh3.googleusercontent.com/d/1swc7qGfgCmCJ-qOH7Wxhh84qiKT0rxA1=w800"
+         alt="Lucas Carroll with Stanley Robotics robot, US skyline">
+    <div class="gallery-caption">North America operations - US market entry</div>
+  </div>
+</div>
+
+<!-- ===== PRESS ===== -->
+<div class="press-card" id="press">
+  <div class="press-inner">
+    <img src="https://lh3.googleusercontent.com/d/1jzjcnz59wwrQpCeJIsFTF4X08aIxuyGe=w400"
+         alt="Evening Standard article about Stanley Robotics">
+    <div class="press-text">
+      <div class="press-source">Evening Standard - Press Coverage</div>
+      <div class="press-headline">"Park the car Stan, we're flying off on holiday"</div>
+      <div class="press-summary">Gatwick Airport trial for autonomous valet parking robots - Stanley Robotics' UK market entry that I led from initial conversations through to live deployment.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STRENGTHS ===== -->
+<div class="section" id="strengths">
+  <div class="section-label">Strengths</div>
+  <div class="section-title">What I bring.</div>
+  <div class="strengths-grid">
+    <div class="strength-tag">Enterprise Robotics Sales</div>
+    <div class="strength-tag">Buyer-Led Methodology</div>
+    <div class="strength-tag">Champion Enablement</div>
+    <div class="strength-tag">New Market Entry</div>
+    <div class="strength-tag">Geographic Expansion</div>
+    <div class="strength-tag">Technical Fluency</div>
+    <div class="strength-tag">Series A/B Scaling</div>
+    <div class="strength-tag">Digital Sales Tools</div>
+    <div class="strength-tag">Cross-Functional Leadership</div>
+    <div class="strength-tag">Consultative Selling</div>
+    <div class="strength-tag">Pipeline Management</div>
+    <div class="strength-tag">AI-Native Workflows</div>
+    <div class="strength-tag">Industry Speaker</div>
+  </div>
+</div>
+
+<!-- ===== CLOSING ===== -->
+<div class="closing-section" id="closing">
+  <div class="section-label">Why Cobot</div>
+  <div class="section-title" style="margin-bottom: 32px;">What I bring to the table.</div>
+  <div class="closing-card">
+    <p>I have spent 6 years selling robots into environments where the buyer has never deployed one. That is the hardest and most rewarding kind of sale - it requires education, patience, and a partner who stays long after the contract is signed.</p>
+    <p>I know how to navigate 12-month enterprise cycles, coordinate between engineering and commercial teams, and build the kind of buyer confidence that <strong>turns a pilot into a fleet</strong>. I also know what happens at deployment - because I have been on-site when the robots go live.</p>
+    <p>I am technically fluent enough to contribute to product conversations and strategic enough to build the <strong>repeatable commercial engine</strong> that turns early traction into durable growth.</p>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <div class="footer-contact">
+    <a href="mailto:lukepcarroll88@gmail.com">lukepcarroll88@gmail.com</a>
+    <a href="tel:+13125390607">+1 312-539-0607</a>
+    <a href="https://linkedin.com/in/lucascarroll1988" target="_blank">LinkedIn</a>
+  </div>
+  <div class="footer-note">Chicago, IL</div>
+</div>
+
+<script>
+  // Scroll-triggered reveals
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.section, .closing-section, .gallery, .press-card').forEach(el => observer.observe(el));
+
+  // Counter animation
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.counter').forEach(counter => {
+          const target = parseInt(counter.getAttribute('data-target'));
+          let current = 0;
+          const increment = target / 40;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              counter.textContent = target;
+              clearInterval(timer);
+            } else {
+              counter.textContent = Math.ceil(current);
+            }
+          }, 40);
+        });
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stats-bar').forEach(el => counterObserver.observe(el));
+
+  // Scroll hint fade
+  window.addEventListener('scroll', () => {
+    const hint = document.querySelector('.scroll-hint');
+    if (window.scrollY > 100) hint.style.opacity = '0';
+    else hint.style.opacity = '';
+  }, { passive: true });
+</script>
+
+</body>
+</html>
